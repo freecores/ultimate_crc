@@ -44,6 +44,9 @@
 -- CVS Revision History
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1  2005/05/07 12:47:47  gedra
+-- Serial implementation.
+--
 --
 --
 
@@ -138,20 +141,20 @@ begin
         crc <= INIT_VALUE;
         match_o <= '0';
       else
-        -- CRC match checker (if data plus CRC is clocked in without errors,
-        -- the CRC register ends up with all zeroes)
-        if fb = zero then
-          match_o <= '1';
-        else
-          match_o <= '0';
-        end if;
-        -- CRC generation/checking
         if clken_i = '1' then
+          -- CRC generation
           if flush_i = '1' then
             crc(0) <= '0';
             crc(msb downto 1) <= crc(msb - 1 downto 0);
           else
             crc <= fb;       
+          end if;
+          -- CRC match checker (if data plus CRC is clocked in without errors,
+          -- the CRC register ends up with all zeroes)
+          if fb = zero then
+            match_o <= '1';
+          else
+            match_o <= '0';
           end if;
         end if;
       end if;
