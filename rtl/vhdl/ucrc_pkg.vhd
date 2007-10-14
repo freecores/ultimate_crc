@@ -44,6 +44,9 @@
 -- CVS Revision History
 --
 -- $Log: not supported by cvs2svn $
+-- Revision 1.1  2005/05/09 15:56:14  gedra
+-- Component declarations
+--
 --
 --
 
@@ -52,34 +55,34 @@ use ieee.std_logic_1164.all;
 
 package ucrc_pkg is
 
-  component ucrc_ser 	 
-    generic (
-      POLYNOMIAL: std_logic_vector;       -- 4 to 32 bits
-      INIT_VALUE: std_logic_vector;  
-      SYNC_RESET: integer range 0 to 1);  -- use synchronous reset
-    port (
-      clk_i: in std_logic;                -- clock
-      rst_i: in std_logic;                -- init CRC
-      clken_i: in std_logic;              -- clock enable
-      data_i: in std_logic;               -- data input
-      flush_i: in std_logic;              -- flush crc
-      match_o: out std_logic;             -- CRC match flag
-      crc_o: out std_logic_vector(POLYNOMIAL'length - 1 downto 0)); -- CRC output
-  end component;
+   component ucrc_ser
+      generic (
+         POLYNOMIAL : std_logic_vector;       -- 4 to 32 bits
+         INIT_VALUE : std_logic_vector;
+         SYNC_RESET : integer range 0 to 1);  -- use synchronous reset
+      port (
+         clk_i   : in  std_logic;       -- clock
+         rst_i   : in  std_logic;       -- init CRC
+         clken_i : in  std_logic;       -- clock enable
+         data_i  : in  std_logic;       -- data input
+         flush_i : in  std_logic;       -- flush crc
+         match_o : out std_logic;       -- CRC match flag
+         crc_o   : out std_logic_vector(POLYNOMIAL'length - 1 downto 0));  -- CRC output
+   end component;
 
-  component ucrc_par
-  generic (
-    POLYNOMIAL: std_logic_vector;      
-    INIT_VALUE: std_logic_vector;
-    DATA_WIDTH: integer range 2 to 256;
-    SYNC_RESET: integer range 0 to 1);  -- use synchronous reset
-  port (
-    clk_i: in std_logic;                -- clock
-    rst_i: in std_logic;                -- init CRC
-    clken_i: in std_logic;              -- clock enable
-    data_i: in std_logic_vector(DATA_WIDTH - 1 downto 0); -- data input
-    match_o: out std_logic;             -- CRC match flag
-    crc_o: out std_logic_vector(POLYNOMIAL'length - 1 downto 0)); -- CRC output
-  end component;
+   component ucrc_par
+      generic (
+         POLYNOMIAL : std_logic_vector;
+         INIT_VALUE : std_logic_vector;
+         DATA_WIDTH : integer range 2 to 256;
+         SYNC_RESET : integer range 0 to 1);  -- use synchronous reset
+      port (
+         clk_i   : in  std_logic;       -- clock
+         rst_i   : in  std_logic;       -- init CRC
+         clken_i : in  std_logic;       -- clock enable
+         data_i  : in  std_logic_vector(DATA_WIDTH - 1 downto 0);  -- data input
+         match_o : out std_logic;       -- CRC match flag
+         crc_o   : out std_logic_vector(POLYNOMIAL'length - 1 downto 0));  -- CRC output
+   end component;
 
 end ucrc_pkg;
